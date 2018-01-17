@@ -11,9 +11,9 @@ model_urls = {
 
 from EIE_module import Conv2d, Linear, Module
 
-nn.Module = Module
-nn.Linear = Linear
-nn.Conv2d = Conv2d
+# nn.Module = Module
+# nn.Linear = Linear
+# nn.Conv2d = Conv2d
 
 class AlexNet(nn.Module):
 

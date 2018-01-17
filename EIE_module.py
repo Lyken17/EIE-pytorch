@@ -5,11 +5,7 @@ import torch.nn as nn
 from torch.autograd import Variable
 from torch.nn.modules.module import _addindent
 
-EIE_target_module = (
-    nn.modules.conv._ConvNd,
-    nn.Conv2d,
-    nn.Linear,
-)
+EIE_target_module = (nn.modules.conv._ConvNd, nn.Conv2d, nn.Linear,)
 
 
 def To_EIE_model(model):
@@ -17,8 +13,6 @@ def To_EIE_model(model):
         if module not in EIE_target_module:
             pass
         module.train()
-
-import numpy as np
 
 
 class Module(nn.Module):
@@ -52,7 +46,6 @@ class Module(nn.Module):
     def param_list(self):
         pass
 
-
     def quantization(self):
         pass
 
@@ -74,23 +67,18 @@ class Conv2d(Module, nn.Conv2d):
 class Linear(Module, nn.Linear):
     pass
 
+
+
 from pprint import pprint
-from torch.in
+
 if __name__ == "__main__":
     d = Variable(torch.zeros([1, 20]).float())
     c = Linear(10, 20)
-    c = nn.Sequential(
-        nn.Linear(20, 10),
-        nn.Linear(10, 10)
-    )
+    c = nn.Sequential(nn.Linear(20, 10), nn.Linear(10, 10))
     pprint(c.__dict__)
     pprint(c.forward(d))
 
     b = Module(c)
     pprint(b.__dict__)
-    pprint(b.forward(d))
-    # res = c.parameter_list
-    # print(res, type(res))
-    #
-    # for name, c in c.named_param_list():
-    #     print(name, c.size())
+    pprint(b.forward(
+        d))  # res = c.parameter_list  # print(res, type(res))  #  # for name, c in c.named_param_list():  #     print(name, c.size())
